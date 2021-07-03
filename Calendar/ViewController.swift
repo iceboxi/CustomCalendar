@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     private var visibleDates: DateSegmentInfo?
     private var offsetX: CGFloat = 0
     
-    private var testModel = CourseAPIModel.ClassModel.test()?.expandEvents() ?? [:]
+    var course = CourseAPIModel.ClassModel.test()?.expandEvents() ?? [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,8 +101,13 @@ extension ViewController {
 
     private func configureCell(view: JTACDayCell?, cellState: CellState) {
         guard let cell = view as? CalendarDateCell else { return }
+        let lectures = getLectures(cellState)
+        cell.configure(with: cellState, lectures: lectures)
+    }
+    
+    private func getLectures(_ cellState: CellState) -> [Lecture]? {
         let dateString = cellState.date.startOfDay.stringFormat("yyyy/MM/dd")
-        cell.configure(with: cellState, lectures: testModel[dateString])
+        return course[dateString]
     }
     
     private func doForward(_ visibleDates: DateSegmentInfo) {

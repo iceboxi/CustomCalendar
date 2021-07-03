@@ -72,6 +72,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="10P-r2-Sdb"/>
                                     <constraint firstAttribute="trailing" secondItem="Dbi-gp-8Z1" secondAttribute="trailing" constant="15" id="1jz-jM-mnp"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZfE-y4-SgD" secondAttribute="trailing" constant="20" symbolic="YES" id="4Mv-nu-XOb"/>
                                     <constraint firstItem="Dbi-gp-8Z1" firstAttribute="centerY" secondItem="vwr-B8-Xue" secondAttribute="centerY" id="4cZ-IW-Xi0"/>
                                     <constraint firstItem="vwr-B8-Xue" firstAttribute="top" secondItem="Rnd-R9-rXX" secondAttribute="top" constant="8" id="4de-Y3-KSJ"/>
                                     <constraint firstItem="vwr-B8-Xue" firstAttribute="leading" secondItem="Rnd-R9-rXX" secondAttribute="leading" constant="8" id="5Y2-mM-3gr"/>
@@ -79,6 +80,7 @@
                                     <constraint firstItem="7Yw-07-yRs" firstAttribute="centerY" secondItem="Rnd-R9-rXX" secondAttribute="centerY" constant="16" id="CuG-ye-M29"/>
                                     <constraint firstItem="ZfE-y4-SgD" firstAttribute="centerY" secondItem="7Yw-07-yRs" secondAttribute="centerY" id="gUB-jj-5Ip"/>
                                     <constraint firstItem="ZfE-y4-SgD" firstAttribute="leading" secondItem="7Yw-07-yRs" secondAttribute="trailing" constant="15" id="gaL-3S-pJP"/>
+                                    <constraint firstItem="Dbi-gp-8Z1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vwr-B8-Xue" secondAttribute="trailing" constant="8" symbolic="YES" id="lsD-0L-813"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="backward" destination="XSy-Tz-ZgB" id="Oz2-ge-eWU"/>
@@ -127,7 +129,7 @@
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCe-i1-bZg">
                                                     <rect key="frame" x="0.0" y="61" width="98" height="239"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-WL-ZIC">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-WL-ZIC">
                                                             <rect key="frame" x="0.0" y="0.0" width="98" height="300"/>
                                                         </stackView>
                                                     </subviews>
@@ -138,6 +140,7 @@
                                                         <constraint firstItem="hQ6-WL-ZIC" firstAttribute="trailing" secondItem="lx3-Hf-Cob" secondAttribute="trailing" id="LA8-t3-jdN"/>
                                                         <constraint firstItem="hQ6-WL-ZIC" firstAttribute="trailing" secondItem="lx3-Hf-Cob" secondAttribute="trailing" id="Ndg-Oi-y0c"/>
                                                         <constraint firstItem="hQ6-WL-ZIC" firstAttribute="bottom" secondItem="lx3-Hf-Cob" secondAttribute="bottom" id="Se8-yM-F5n"/>
+                                                        <constraint firstItem="hQ6-WL-ZIC" firstAttribute="centerX" secondItem="UCe-i1-bZg" secondAttribute="centerX" id="Sqh-uI-Rb4"/>
                                                         <constraint firstItem="hQ6-WL-ZIC" firstAttribute="leading" secondItem="lx3-Hf-Cob" secondAttribute="leading" id="f8N-ci-mCb"/>
                                                         <constraint firstItem="hQ6-WL-ZIC" firstAttribute="leading" secondItem="lx3-Hf-Cob" secondAttribute="leading" id="hzr-R9-anf"/>
                                                     </constraints>
@@ -156,7 +159,6 @@
                                                 <constraint firstItem="NTh-FN-GJL" firstAttribute="top" secondItem="0Vv-dl-imT" secondAttribute="bottom" constant="6" id="dep-N1-OxJ"/>
                                                 <constraint firstItem="hQ6-WL-ZIC" firstAttribute="height" secondItem="Xun-cI-ZCS" secondAttribute="height" priority="250" id="fYD-Om-7hC"/>
                                                 <constraint firstAttribute="trailing" secondItem="UCe-i1-bZg" secondAttribute="trailing" id="flX-J0-QCv"/>
-                                                <constraint firstItem="hQ6-WL-ZIC" firstAttribute="width" secondItem="Xun-cI-ZCS" secondAttribute="width" id="jFt-hI-GPt"/>
                                                 <constraint firstItem="0Vv-dl-imT" firstAttribute="centerX" secondItem="Xun-cI-ZCS" secondAttribute="centerX" id="oWK-16-lqT"/>
                                                 <constraint firstAttribute="bottom" secondItem="UCe-i1-bZg" secondAttribute="bottom" id="x42-l8-q8e"/>
                                             </constraints>

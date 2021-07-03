@@ -70,37 +70,44 @@ struct CourseAPIModel {
         }
         
         func expandEvents() -> [String: [Lecture]] {
-            var result = [String: [Lecture]]()
-            for lesson in available {
+            func generateKey(with date: Date) -> String {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy/MM/dd"
+                return formatter.string(from: date)
+            }
+            
+            func nextStep(_ date: inout Date) {
+                date = date.dateByAddSeconds(60*30)
+            }
+            
+            func saveLectureSchedule(_ result: inout [String: [Lecture]], lesson: EventDate, booked: Bool) {
                 var temp = lesson.start
                 while temp < lesson.end {
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy/MM/dd"
-                    let key = formatter.string(from: temp)
+                    let key = generateKey(with: temp)
                     var value: [Lecture] = result[key] ?? []
-                    value.append(Lecture(start: temp, booked: false))
+                    value.append(Lecture(start: temp, booked: booked))
                     result[key] = value
-                    temp = temp.dateByAddSeconds(60*30)
+                    nextStep(&temp)
                 }
+            }
+            
+            func sortSchedule(_ result: inout [String: [Lecture]]) {
+                for key in result.keys {
+                    let value = result[key]
+                    result[key] = value?.sorted(by: { $0.start < $1.start })
+                }
+            }
+            
+            var result = [String: [Lecture]]()
+            for lesson in available {
+                saveLectureSchedule(&result, lesson: lesson, booked: false)
             }
             
             for book in booked {
-                var temp = book.start
-                while temp < book.end {
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy/MM/dd"
-                    let key = formatter.string(from: temp)
-                    var value: [Lecture] = result[key] ?? []
-                    value.append(Lecture(start: temp, booked: true))
-                    result[key] = value
-                    temp = temp.dateByAddSeconds(60*30)
-                }
+                saveLectureSchedule(&result, lesson: book, booked: true)
             }
             
-            for key in result.keys {
-                let value = result[key]
-                result[key] = value?.sorted(by: { $0.start < $1.start })
-            }
+            sortSchedule(&result)
             
             return result
         }
