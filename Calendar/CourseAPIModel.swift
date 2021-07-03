@@ -1,5 +1,5 @@
 //
-//  EventModel.swift
+//  CourseAPIModel.swift
 //  Calendar
 //
 //  Created by ice on 2021/7/3.

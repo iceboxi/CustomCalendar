@@ -28,23 +28,47 @@ class CalendarDateCell: JTACDayCell {
         dateLabel.text = cellState.text
         dayLabel.text = cellState.day.desription
         
-        if cellState.date < Date().startOfDay {
-            dayColor.backgroundColor = .lightGray
-            dayLabel.textColor = .lightGray
-            dateLabel.textColor = .lightGray
-        } else {
-            dayColor.backgroundColor = .green
-            dayLabel.textColor = .black
-            dateLabel.textColor = .black
-        }
-        
+        setupColor(with: cellState)
+        drawTime(with: lectures)
+    }
+    
+    private func drawTime(with lectures: [Lecture]?) {
         lectures?.forEach({ lecture in
-            let lbl = UILabel()
+            let lbl = getCutsomLabel()
             lbl.text = lecture.start.stringFormat("HH:mm")
             lbl.textColor = lecture.booked ? .lightGray : .green
-            lbl.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-            lbl.contentMode = .center
             eventStack.addArrangedSubview(lbl)
         })
+    }
+    
+    private func getCutsomLabel() -> UILabel {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        lbl.contentMode = .center
+        return lbl
+    }
+    
+    private func setupColor(with cellState: CellState) {
+        if isExpire(cellState.date) {
+            setAsExpire()
+        } else {
+            setAsVaild()
+        }
+    }
+    
+    private func isExpire(_ date: Date) -> Bool {
+        return date < Date().startOfDay
+    }
+    
+    private func setAsExpire() {
+        dayColor.backgroundColor = .lightGray
+        dayLabel.textColor = .lightGray
+        dateLabel.textColor = .lightGray
+    }
+    
+    private func setAsVaild() {
+        dayColor.backgroundColor = .green
+        dayLabel.textColor = .black
+        dateLabel.textColor = .black
     }
 }

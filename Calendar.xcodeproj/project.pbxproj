@@ -13,7 +13,7 @@
 		5871FB622690338700CE8317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5871FB602690338700CE8317 /* Main.storyboard */; };
 		5871FB642690338A00CE8317 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5871FB632690338A00CE8317 /* Assets.xcassets */; };
 		5871FB672690338A00CE8317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5871FB652690338A00CE8317 /* LaunchScreen.storyboard */; };
-		5871FB7026904A2500CE8317 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871FB6F26904A2400CE8317 /* EventModel.swift */; };
+		5871FB7026904A2500CE8317 /* CourseAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871FB6F26904A2400CE8317 /* CourseAPIModel.swift */; };
 		5871FB722690626B00CE8317 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871FB712690626B00CE8317 /* Date+Extension.swift */; };
 		5871FB772690664A00CE8317 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5871FB792690664A00CE8317 /* Localizable.strings */; };
 		5871FB822690A7F900CE8317 /* CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871FB812690A7F900CE8317 /* CalendarTests.swift */; };
@@ -43,7 +43,7 @@
 		5871FB632690338A00CE8317 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5871FB662690338A00CE8317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5871FB682690338A00CE8317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5871FB6F26904A2400CE8317 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
+		5871FB6F26904A2400CE8317 /* CourseAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAPIModel.swift; sourceTree = "<group>"; };
 		5871FB712690626B00CE8317 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		5871FB782690664A00CE8317 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5871FB7A2690664E00CE8317 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				5871FB5E2690338700CE8317 /* ViewController.swift */,
 				5871FB8A2690C2E300CE8317 /* CalendarDateCell.swift */,
 				5871FB912690C3FF00CE8317 /* CalendarDateHeader.swift */,
-				5871FB6F26904A2400CE8317 /* EventModel.swift */,
+				5871FB6F26904A2400CE8317 /* CourseAPIModel.swift */,
 				5871FB8E2690C38900CE8317 /* Extension */,
 				5871FB602690338700CE8317 /* Main.storyboard */,
 				5871FB632690338A00CE8317 /* Assets.xcassets */,
@@ -325,7 +325,7 @@
 				5871FB8D2690C35900CE8317 /* JTAppleCalendar+Extension.swift in Sources */,
 				5871FB902690C3B200CE8317 /* UIStackView+Extension.swift in Sources */,
 				5871FB922690C3FF00CE8317 /* CalendarDateHeader.swift in Sources */,
-				5871FB7026904A2500CE8317 /* EventModel.swift in Sources */,
+				5871FB7026904A2500CE8317 /* CourseAPIModel.swift in Sources */,
 				5871FB5D2690338700CE8317 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

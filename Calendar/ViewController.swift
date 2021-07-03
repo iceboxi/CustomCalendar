@@ -17,12 +17,7 @@ class ViewController: UIViewController {
                     return
                 }
                 
-                let currect = visibleDates.getDisplayDate().start.dateByAddDays(-7)
-                if currect < Date().startOfDay {
-                    self.calendarView.scrollToDate(Date(), animateScroll: true)
-                } else {
-                    self.calendarView.scrollToDate(currect, animateScroll: true)
-                }
+                self.doForward(visibleDates)
             }
             
             header.backwardHandler = { [weak self] in
@@ -30,14 +25,11 @@ class ViewController: UIViewController {
                     return
                 }
                 
-                let currect = visibleDates.getDisplayDate().end.dateByAddDays(1)
-                self.calendarView.scrollToDate(currect, animateScroll: true)
+                self.doBackward(visibleDates)
             }
         }
     }
     
-    private let startDate: Date = Date()
-    private let endDate: Date = Date().dateByAddDays(365)
     private var visibleDates: DateSegmentInfo?
     private var offsetX: CGFloat = 0
     
@@ -46,21 +38,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        calendarView.scrollDirection = .horizontal
-        calendarView.scrollToDate(Date(), animateScroll: false)
-        calendarView.allowsMultipleSelection = false
-    }
-
-    private func configureCell(view: JTACDayCell?, cellState: CellState) {
-        guard let cell = view as? CalendarDateCell else { return }
-        let dateString = cellState.date.startOfDay.stringFormat("yyyy/MM/dd")
-        cell.configure(with: cellState, lectures: testModel[dateString])
+        setupCalendar()
     }
 }
 
 // MARK: - JTACMonthViewDataSource
 extension ViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
+        let startDate: Date = Date()
+        let endDate: Date = Date().dateByAddDays(365)
+        
         return ConfigurationParameters(startDate: startDate,
                                        endDate: endDate,
                                        numberOfRows: 1,
@@ -83,25 +70,15 @@ extension ViewController: JTACMonthViewDelegate {
     }
     
     func calendarDidScroll(_ calendar: JTACMonthView) {
-        header.forward.isEnabled = !(calendar.contentOffset.x <= 0)
-        header.forward.tintColor = calendar.contentOffset.x <= 0 ? .lightGray : .darkGray
-        
-        header.backward.isEnabled = !(calendar.contentOffset.x >= calendar.contentSize.width - UIScreen.main.bounds.width)
-        header.backward.tintColor = calendar.contentOffset.x >= calendar.contentSize.width - UIScreen.main.bounds.width ? .lightGray : .darkGray
+        header.setupHeaderButton(calendar)
     }
     
     func calendar(_ calendar: JTACMonthView, willScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
-        if visibleDates.getDisplayDate().start == self.visibleDates?.getDisplayDate().start {
-            if offsetX > calendar.contentOffset.x {
-                let currect = visibleDates.getDisplayDate().start.dateByAddDays(-7)
-                if currect < Date().startOfDay {
-                    self.calendarView.scrollToDate(Date(), animateScroll: true)
-                } else {
-                    self.calendarView.scrollToDate(currect, animateScroll: true)
-                }
+        if isRepeatWeek(visibleDates) {
+            if isForwardDirect(calendar.contentOffset.x) {
+                doForward(visibleDates)
             } else {
-                let currect = visibleDates.getDisplayDate().end.dateByAddDays(1)
-                calendarView.scrollToDate(currect, animateScroll: true)
+                doBackward(visibleDates)
             }
         }
         
@@ -109,16 +86,44 @@ extension ViewController: JTACMonthViewDelegate {
     }
     
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
-        let (start, end) = visibleDates.getDisplayDate()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd - "
-        
-        var str = formatter.string(from: start)
-        formatter.dateFormat = "dd"
-        str.append(formatter.string(from: end))
-        
-        header.timeRange.text = str
-        
+        header.configure(calendar, and: visibleDates)
         self.visibleDates = visibleDates
+    }
+}
+
+// MARK: - Private
+extension ViewController {
+    private func setupCalendar() {
+        calendarView.scrollDirection = .horizontal
+        calendarView.scrollToDate(Date(), animateScroll: false)
+        calendarView.allowsMultipleSelection = false
+    }
+
+    private func configureCell(view: JTACDayCell?, cellState: CellState) {
+        guard let cell = view as? CalendarDateCell else { return }
+        let dateString = cellState.date.startOfDay.stringFormat("yyyy/MM/dd")
+        cell.configure(with: cellState, lectures: testModel[dateString])
+    }
+    
+    private func doForward(_ visibleDates: DateSegmentInfo) {
+        let currect = visibleDates.getDisplayDate().start.dateByAddDays(-7)
+        if currect < Date().startOfDay {
+            self.calendarView.scrollToDate(Date(), animateScroll: true)
+        } else {
+            self.calendarView.scrollToDate(currect, animateScroll: true)
+        }
+    }
+    
+    private func doBackward(_ visibleDates: DateSegmentInfo) {
+        let currect = visibleDates.getDisplayDate().end.dateByAddDays(1)
+        calendarView.scrollToDate(currect, animateScroll: true)
+    }
+    
+    private func isRepeatWeek(_ visibleDates: DateSegmentInfo) -> Bool {
+        return visibleDates.getDisplayDate().start == self.visibleDates?.getDisplayDate().start
+    }
+    
+    private func isForwardDirect(_ x: CGFloat) -> Bool {
+        return offsetX > x
     }
 }
