@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  Calendar
+
+  Created by ice on 2021/7/3.
+  
+*/
+".monday" = "Mon";
+".sunday" = "Sun";
+".tuesday" = "Tue";
+".wednesday" = "Wed";
+".thursday" = "Thu";
+".friday" = "Fri";
+".saturday" = "Sat";
+"Lesson Time" = "Available times";
+"*time with %@(%@)" = "*time with %@(%@)";

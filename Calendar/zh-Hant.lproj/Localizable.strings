@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  Calendar
+
+  Created by ice on 2021/7/3.
+  
+*/
+".monday" = "一";
+".sunday" = "日";
+".tuesday" = "二";
+".wednesday" = "三";
+".thursday" = "四";
+".friday" = "五";
+".saturday" = "六";
+"Lesson Time" = "授課時間";
+"*time with %@(%@)" = "*時間以 %@(%@) 顯示";

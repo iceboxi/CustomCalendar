@@ -1,0 +1,20 @@
+excluded:
+  - Carthage
+  - Pods
+  - builds
+disabled_rules:
+  - trailing_whitespace
+  - type_name
+  - force_cast
+  - force_try
+identifier_name:
+  min_length: 1
+file_length:
+  warning: 500
+  error: 800
+type_body_length:
+  - 500 # warning
+  - 700 # error
+line_length:
+  warning: 200
+  error: 300
