@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     private var visibleDates: DateSegmentInfo?
     private var offsetX: CGFloat = 0
     
-    private var testModel = EventModel.test()?.expandEvents() ?? [:]
+    private var testModel = CourseAPIModel.ClassModel.test()?.expandEvents() ?? [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,10 +49,6 @@ class ViewController: UIViewController {
         calendarView.scrollDirection = .horizontal
         calendarView.scrollToDate(Date(), animateScroll: false)
         calendarView.allowsMultipleSelection = false
-        
-        let test = EventModel.test()
-        print("\(test)")
-        print("\(test?.expandEvents())")
     }
 
     private func configureCell(view: JTACDayCell?, cellState: CellState) {
@@ -62,6 +58,7 @@ class ViewController: UIViewController {
     }
 }
 
+// MARK: - JTACMonthViewDataSource
 extension ViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         return ConfigurationParameters(startDate: startDate,
@@ -73,6 +70,7 @@ extension ViewController: JTACMonthViewDataSource {
     }
 }
 
+// MARK: - JTACMonthViewDelegate
 extension ViewController: JTACMonthViewDelegate {
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! CalendarDateCell
@@ -122,125 +120,5 @@ extension ViewController: JTACMonthViewDelegate {
         header.timeRange.text = str
         
         self.visibleDates = visibleDates
-    }
-}
-
-class CalendarDateCell: JTACDayCell {
-    @IBOutlet weak var dayColor: UIView! 
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var eventStack: UIStackView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        eventStack.removeAllArrangedSubviews()
-    }
-    
-    func configure(with cellState: CellState, lectures: [Lecture]?) {
-        dateLabel.text = cellState.text
-        dayLabel.text = cellState.day.desription
-        
-        if cellState.date < Date().startOfDay {
-            dayColor.backgroundColor = .lightGray
-            dayLabel.textColor = .lightGray
-            dateLabel.textColor = .lightGray
-        } else {
-            dayColor.backgroundColor = .green
-            dayLabel.textColor = .black
-            dateLabel.textColor = .black
-        }
-        
-        lectures?.forEach({ lecture in
-            let lbl = UILabel()
-            lbl.text = lecture.start.stringFormat("HH:mm")
-            lbl.textColor = lecture.booked ? .lightGray : .green
-            lbl.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-            lbl.contentMode = .center
-            eventStack.addArrangedSubview(lbl)
-        })
-    }
-}
-
-extension DaysOfWeek {
-    var desription: String {
-        switch self {
-        case .monday:
-            return NSLocalizedString(".monday", comment: "monday")
-        case .sunday:
-            return NSLocalizedString(".sunday", comment: "sunday")
-        case .tuesday:
-            return NSLocalizedString(".tuesday", comment: "tuesday")
-        case .wednesday:
-            return NSLocalizedString(".wednesday", comment: "wednesday")
-        case .thursday:
-            return NSLocalizedString(".thursday", comment: "thursday")
-        case .friday:
-            return NSLocalizedString(".friday", comment: "friday")
-        case .saturday:
-            return NSLocalizedString(".saturday", comment: "saturday")
-        }
-    }
-}
-
-extension DateSegmentInfo {
-    func getDisplayDate() -> (start: Date, end: Date) {
-        var startDate = monthDates.first?.date
-        var endDate = monthDates.last?.date
-        if let date = indates.first?.date {
-            startDate = date
-        }
-        if let date = outdates.last?.date {
-            endDate = date
-        }
-        return (startDate ?? Date(), endDate ?? Date())
-    }
-}
-
-extension UIStackView {
-    func removeAllArrangedSubviews() {
-        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
-            self.removeArrangedSubview(subview)
-            return allSubviews + [subview]
-        }
-        
-        // Deactivate all constraints
-        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
-        
-        // Remove the views from self
-        removedSubviews.forEach({ $0.removeFromSuperview() })
-    }
-}
-
-class CalendarDateHeader: UIView {
-    @IBOutlet weak var title: UILabel! {
-        didSet {
-            title.text = NSLocalizedString("Lesson Time", comment: "Lesson Time")
-        }
-    }
-    @IBOutlet weak var forward: UIButton!
-    @IBOutlet weak var backward: UIButton!
-    @IBOutlet weak var timeRange: UILabel!
-    @IBOutlet weak var zone: UILabel! {
-        didSet {
-            let localName = TimeZone.current.localizedName(for: .shortGeneric, locale: Locale.current) ?? ""
-            let abbr = TimeZone.current.abbreviation() ?? ""
-            zone.text = String(format: NSLocalizedString("*time with %@(%@)", comment: "*time with %@(%@)"), localName, abbr)
-        }
-    }
-    
-    var backwardHandler: (() -> Void)?
-    var forwardHandler: (() -> Void)?
-    
-    @IBAction func backwardAction() {
-        backwardHandler?()
-    }
-    
-    @IBAction func forwardAction() {
-        forwardHandler?()
     }
 }

@@ -21,7 +21,7 @@ class CalendarTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let model = EventModel.test()
+        let model = CourseAPIModel.ClassModel.test()
         print("\(model)")
         XCTAssertEqual(model?.available.count, 5)
     }
