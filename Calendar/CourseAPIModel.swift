@@ -12,49 +12,16 @@ struct CourseAPIModel {
         var available: [EventDate]
         var booked: [EventDate]
         
-        static func test() -> ClassModel? {
-            let json = """
-                {
-                  "available": [
-                    {
-                      "start": "2021-07-23T08:30:00Z",
-                      "end": "2021-07-23T16:00:00Z"
-                    },
-                    {
-                      "start": "2021-07-24T16:00:00Z",
-                      "end": "2021-07-24T17:30:00Z"
-                    },
-                    {
-                      "start": "2021-07-24T18:30:00Z",
-                      "end": "2021-07-27T17:00:00Z"
-                    },
-                    {
-                      "start": "2021-07-27T17:30:00Z",
-                      "end": "2021-07-28T11:00:00Z"
-                    },
-                    {
-                      "start": "2021-07-28T11:30:00Z",
-                      "end": "2021-07-28T17:00:00Z"
-                    }
-                  ],
-                  "booked": [
-                    {
-                      "start": "2021-07-24T17:30:00Z",
-                      "end": "2021-07-24T18:30:00Z"
-                    },
-                    {
-                      "start": "2021-07-27T17:00:00Z",
-                      "end": "2021-07-27T17:30:00Z"
-                    },
-                    {
-                      "start": "2021-07-28T11:00:00Z",
-                      "end": "2021-07-28T11:30:00Z"
-                    }
-                  ]
-                }
-                """
-            
+        static func convert(with json: String) -> ClassModel? {
             guard let data = json.data(using: .utf8) else {
+                return nil
+            }
+            
+            return convert(with: data)
+        }
+        
+        static func convert(with data: Data?) -> ClassModel? {
+            guard let data = data else {
                 return nil
             }
             
@@ -117,9 +84,4 @@ struct CourseAPIModel {
         var start: Date
         var end: Date
     }
-}
-
-struct Lecture {
-    var start: Date
-    var booked: Bool
 }

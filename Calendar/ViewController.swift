@@ -8,6 +8,11 @@
 import UIKit
 import JTAppleCalendar
 
+struct Lecture {
+    var start: Date
+    var booked: Bool
+}
+
 class ViewController: UIViewController {
     @IBOutlet weak var calendarView: JTACMonthView!
     @IBOutlet weak var header: CalendarDateHeader! {
@@ -33,12 +38,29 @@ class ViewController: UIViewController {
     private var visibleDates: DateSegmentInfo?
     private var offsetX: CGFloat = 0
     
-    var course = CourseAPIModel.ClassModel.test()?.expandEvents() ?? [:]
+    var course: [String: [Lecture]]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupCalendar()
+        callAPI()
+    }
+    
+    private func callAPI() {
+        let session = NetworkSessionMock()
+        let manager = NetworkManager(session: session)
+        
+        let data = testJson.data(using: .utf8)
+        session.data = data
+        
+        let url = URL(fileURLWithPath: "url")
+        manager.loadData(from: url) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.course = result?.expandEvents()
+                self?.calendarView.reloadData()
+            }
+        }
     }
 }
 
@@ -107,7 +129,7 @@ extension ViewController {
     
     private func getLectures(_ cellState: CellState) -> [Lecture]? {
         let dateString = cellState.date.startOfDay.stringFormat("yyyy/MM/dd")
-        return course[dateString]
+        return course?[dateString]
     }
     
     private func doForward(_ visibleDates: DateSegmentInfo) {

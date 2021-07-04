@@ -21,6 +21,7 @@
 		5871FB8D2690C35900CE8317 /* JTAppleCalendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871FB8C2690C35900CE8317 /* JTAppleCalendar+Extension.swift */; };
 		5871FB902690C3B200CE8317 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871FB8F2690C3B200CE8317 /* UIStackView+Extension.swift */; };
 		5871FB922690C3FF00CE8317 /* CalendarDateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871FB912690C3FF00CE8317 /* CalendarDateHeader.swift */; };
+		5871FB94269161FF00CE8317 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871FB93269161FF00CE8317 /* NetworkManager.swift */; };
 		5E6D8D0CA4C37C4724BA485D /* Pods_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9390DFA36018E9B14A54FA /* Pods_Calendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		5871FB8C2690C35900CE8317 /* JTAppleCalendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JTAppleCalendar+Extension.swift"; sourceTree = "<group>"; };
 		5871FB8F2690C3B200CE8317 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		5871FB912690C3FF00CE8317 /* CalendarDateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateHeader.swift; sourceTree = "<group>"; };
+		5871FB93269161FF00CE8317 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		8FB34ACD5A40B668FA676ABF /* Pods-Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.release.xcconfig"; path = "Target Support Files/Pods-Calendar/Pods-Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		BCA799B9C44C0AB132DBD0D0 /* Pods-Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Calendar/Pods-Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		DF9390DFA36018E9B14A54FA /* Pods_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 				5871FB8A2690C2E300CE8317 /* CalendarDateCell.swift */,
 				5871FB912690C3FF00CE8317 /* CalendarDateHeader.swift */,
 				5871FB6F26904A2400CE8317 /* CourseAPIModel.swift */,
+				5871FB93269161FF00CE8317 /* NetworkManager.swift */,
 				5871FB8E2690C38900CE8317 /* Extension */,
 				5871FB602690338700CE8317 /* Main.storyboard */,
 				5871FB632690338A00CE8317 /* Assets.xcassets */,
@@ -320,6 +323,7 @@
 			files = (
 				5871FB722690626B00CE8317 /* Date+Extension.swift in Sources */,
 				5871FB8B2690C2E400CE8317 /* CalendarDateCell.swift in Sources */,
+				5871FB94269161FF00CE8317 /* NetworkManager.swift in Sources */,
 				5871FB5F2690338700CE8317 /* ViewController.swift in Sources */,
 				5871FB5B2690338700CE8317 /* AppDelegate.swift in Sources */,
 				5871FB8D2690C35900CE8317 /* JTAppleCalendar+Extension.swift in Sources */,
