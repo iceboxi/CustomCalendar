@@ -36,7 +36,7 @@ struct CourseAPIModel {
             }
         }
         
-        func expandEvents() -> [String: [Lecture]] {
+        func expandSchedule() -> [String: [Lecture]] {
             func generateKey(with date: Date) -> String {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy/MM/dd"

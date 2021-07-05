@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         let url = URL(fileURLWithPath: "url")
         manager.loadData(from: url) { [weak self] result in
             DispatchQueue.main.async {
-                self?.course = result?.expandEvents()
+                self?.course = result?.expandSchedule()
                 self?.calendarView.reloadData()
             }
         }
