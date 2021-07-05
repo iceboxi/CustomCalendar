@@ -37,10 +37,16 @@ struct CourseAPIModel {
         }
         
         func expandSchedule() -> [String: [Lecture]] {
-            func generateKey(with date: Date) -> String {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy/MM/dd"
-                return formatter.string(from: date)
+            func generateKey(with date: Date) -> String? {
+                if isTooLate(date) {
+                    return nil
+                }
+                
+                return date.stringFormat("yyyy/MM/dd")
+            }
+            
+            func isTooLate(_ date: Date) -> Bool {
+                return date < Date().startOfDay
             }
             
             func nextStep(_ date: inout Date) {
@@ -50,10 +56,11 @@ struct CourseAPIModel {
             func saveLectureSchedule(_ result: inout [String: [Lecture]], lesson: EventDate, booked: Bool) {
                 var temp = lesson.start
                 while temp < lesson.end {
-                    let key = generateKey(with: temp)
-                    var value: [Lecture] = result[key] ?? []
-                    value.append(Lecture(start: temp, booked: booked))
-                    result[key] = value
+                    if let key = generateKey(with: temp) {
+                        var value: [Lecture] = result[key] ?? []
+                        value.append(Lecture(start: temp, booked: booked))
+                        result[key] = value
+                    }
                     nextStep(&temp)
                 }
             }

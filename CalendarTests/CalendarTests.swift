@@ -24,7 +24,7 @@ class CalendarTests: XCTestCase {
     
     func testClassModelConvert() throws {
         let model = CourseAPIModel.ClassModel.convert(with: testJson)
-        XCTAssertEqual(model?.available.count, 5)
+        XCTAssertEqual(model?.available.count, 8)
         XCTAssertEqual(model?.booked.count, 3)
     }
     
@@ -42,14 +42,84 @@ class CalendarTests: XCTestCase {
         }
         
         wait(for: [promise], timeout: 5)
-        XCTAssertEqual(model?.available.count, 5)
+        XCTAssertEqual(model?.available.count, 8)
         XCTAssertEqual(model?.booked.count, 3)
     }
     
     func testExpandSchedule() throws {
-        let model = CourseAPIModel.ClassModel.convert(with: testJson)
+        let json = """
+            {
+              "available": [
+                {
+                  "start": "2020-07-04T08:30:00Z",
+                  "end": "2020-07-04T16:00:00Z"
+                },
+                {
+                  "start": "2020-07-05T08:30:00Z",
+                  "end": "2020-07-05T16:00:00Z"
+                },
+                {
+                  "start": "2020-07-06T08:30:00Z",
+                  "end": "2020-07-06T16:00:00Z"
+                }
+              ],
+              "booked": [
+                {
+                  "start": "2999-07-24T17:30:00Z",
+                  "end": "2999-07-24T18:30:00Z"
+                },
+                {
+                  "start": "2999-07-27T17:00:00Z",
+                  "end": "2999-07-27T17:30:00Z"
+                },
+                {
+                  "start": "2999-07-28T11:00:00Z",
+                  "end": "2999-07-28T11:30:00Z"
+                }
+              ]
+            }
+            """
+        let model = CourseAPIModel.ClassModel.convert(with: json)
         let result = model?.expandSchedule()
-        XCTAssertEqual(result?.keys.count, 6)
+        XCTAssertEqual(result?.keys.count, 2)
+    }
+    
+    func testExpandFilterOlderSchedule() throws {
+        let json = """
+            {
+              "available": [
+                {
+                  "start": "2020-07-04T08:30:00Z",
+                  "end": "2020-07-04T16:00:00Z"
+                },
+                {
+                  "start": "2020-07-05T08:30:00Z",
+                  "end": "2020-07-05T16:00:00Z"
+                },
+                {
+                  "start": "2020-07-06T08:30:00Z",
+                  "end": "2020-07-06T16:00:00Z"
+                }
+              ],
+              "booked": [
+                {
+                  "start": "2020-07-24T17:30:00Z",
+                  "end": "2020-07-24T18:30:00Z"
+                },
+                {
+                  "start": "2020-07-27T17:00:00Z",
+                  "end": "2020-07-27T17:30:00Z"
+                },
+                {
+                  "start": "2020-07-28T11:00:00Z",
+                  "end": "2020-07-28T11:30:00Z"
+                }
+              ]
+            }
+            """
+        let model = CourseAPIModel.ClassModel.convert(with: json)
+        let result = model?.expandSchedule()
+        XCTAssertEqual(result?.keys.count, 0)
     }
 
     func testPerformanceExample() throws {
